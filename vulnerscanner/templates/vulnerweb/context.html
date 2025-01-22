@@ -1,0 +1,851 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<!-- Bootstrap Select Css -->
+<link href="{% static 'plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet" />
+<style>
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+</style>
+{% endblock %}
+{% block general_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h2>
+                                    <i class="material-icons">local_library</i>Context
+                                </h2>
+                            </div>
+                            <div class="col-md-10">
+                                <a href="{% url 'resetContext' %}"
+                                    class="btn bg-orange waves-effect btn-lg mx-2 pull-right">
+                                    <i class="material-icons">replay</i>
+                                    <span>Reset Context</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <!-- Exportable Table -->
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+
+                                            <div class="body">
+                                                <!-- Nav tabs -->
+
+                                                <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#home"
+                                                            data-toggle="tab" aria-expanded="false">Context</a></li>
+                                                    <li role="presentation" class=""><a href="#profile"
+                                                            data-toggle="tab" aria-expanded="false">Authentication</a>
+                                                    </li>
+                                                    <li role="presentation" class=""><a href="#messages"
+                                                            data-toggle="tab" aria-expanded="false">Users</a></li>
+                                                    <li role="presentation" class=""><a href="#settings"
+                                                            data-toggle="tab" aria-expanded="true">Forced User</a></li>
+                                                </ul>
+
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade active in" id="home">
+                                                        <form action="{% url 'updateContext' %}" method="POST">
+                                                            {% csrf_token %}
+
+                                                            <div class="row">
+                                                                {% if db %}
+                                                                <div class="col-md-12">
+                                                                    <blockquote class="m-b-25">
+                                                                        <h4>DATABASE</h4>
+                                                                    </blockquote>
+
+                                                                    {% for x in db %}
+
+                                                                    <div class="col-sm-2">
+                                                                        <div class="demo-switch-title">
+                                                                            {{x.0}}</div>
+                                                                        <div class="switch">
+                                                                            <label><input type="checkbox" {{x.1}}
+                                                                                    name="Db" value="Db.{{x.0}}"><span
+                                                                                    class="lever switch-col-deep-purple"
+                                                                                    name=""></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    {% endfor %}
+
+
+
+                                                                </div>
+                                                                {% endif %}
+                                                                <hr>
+                                                                {% if lan %}
+                                                                <div class="col-md-12">
+                                                                    <blockquote class="m-b-25">
+                                                                        <h4>LANGUAGES</h4>
+                                                                    </blockquote>
+
+                                                                    {% for x in lan %}
+
+                                                                    <div class="col-sm-2">
+                                                                        <div class="demo-switch-title">{{x.0}}</div>
+                                                                        <div class="switch">
+                                                                            <label><input type="checkbox" {{x.1}}
+                                                                                    name="Language"
+                                                                                    value="Language.{{x.0}}"><span
+                                                                                    class="lever switch-col-blue"></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    {% endfor %}
+
+                                                                    <hr>
+                                                                </div>
+                                                                {% endif %}
+
+                                                                <hr>
+                                                                {% if oss %}
+                                                                <div class="col-md-12">
+                                                                    <blockquote class="m-b-25">
+                                                                        <h4>OPERATING SYSTEM</h4>
+                                                                    </blockquote>
+
+                                                                    {% for x in oss %}
+
+                                                                    <div class="col-sm-2">
+                                                                        <div class="demo-switch-title">{{x.0}}</div>
+                                                                        <div class="switch">
+                                                                            <label><input type="checkbox" {{x.1}}
+                                                                                    name="OS" value="OS.{{x.0}}"><span
+                                                                                    class="lever switch-col-green"></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    {% endfor %}
+
+
+                                                                </div>
+                                                                {% endif %}
+                                                                <hr>
+
+                                                                {% if ws %}
+                                                                <div class="col-md-12">
+                                                                    <blockquote class="m-b-25">
+                                                                        <h4>WEB SOCKET</h4>
+                                                                    </blockquote>
+
+                                                                    {% for x in ws %}
+
+                                                                    <div class="col-sm-2">
+                                                                        <div class="demo-switch-title">{{x.0}}</div>
+                                                                        <div class="switch">
+                                                                            <label><input type="checkbox" {{x.1}}
+                                                                                    name="WS" value="WS.{{x.0}}"><span
+                                                                                    class="lever switch-col-purple"></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    {% endfor %}
+
+
+                                                                </div>
+                                                                {% endif %}
+
+                                                                <hr>
+
+                                                                {% if scm %}
+                                                                <div class="col-md-12">
+                                                                    <blockquote class="m-b-25">
+                                                                        <h4>Source Code Management</h4>
+                                                                    </blockquote>
+
+                                                                    {% for x in scm %}
+
+                                                                    <div class="col-sm-2">
+                                                                        <div class="demo-switch-title">{{x.0}}</div>
+                                                                        <div class="switch">
+                                                                            <label><input type="checkbox" {{x.1}}
+                                                                                    name="SCM" value="SCM.{{x.0}}"><span
+                                                                                    class="lever switch-col-red"></span></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    {% endfor %}
+
+
+                                                                </div>
+                                                                {% endif %}
+
+
+
+                                                            </div>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <button type="submit"
+                                                                        class="btn bg-red waves-effect btn-lg pull-right">
+                                                                        <i class="material-icons">update</i>
+                                                                        <span>Update</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                        <form action="{% url 'authSetting' %}" method="POST">
+                                                            <div class="tab-content">
+                                                                <div role="tabpanel" class="tab-pane fade in active"
+                                                                    id="home_with_icon_title">
+                                                                    <div class="row clearfix">
+                                                                        <div class="col-md-2">
+
+                                                                        </div>
+                                                                        <div class="col-md-8 col-sm-12">
+                                                                            <div class="card">
+                                                                                <div class="header shadow bg-info">
+                                                                                    <h2>Note : Form Based Authentication
+                                                                                    </h2>
+                                                                                    </h2>
+                                                                                </div>
+                                                                                <div class="body">
+                                                                                    <form action="" method="POST">
+                                                                                        {% csrf_token %}
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-md-12">
+                                                                                                <blockquote
+                                                                                                    class="m-b-25">
+                                                                                                    <h4>Authentication
+                                                                                                    </h4>
+                                                                                                </blockquote>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+
+                                                                                            <div class="col-md-1">
+
+                                                                                            </div>
+                                                                                            <div class="col-md-5">
+                                                                                                <b>Login of Target
+                                                                                                    URL
+                                                                                                    *
+                                                                                                    :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">vpn_lock</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control ip"
+                                                                                                            placeholder="https://domain.com/login.php"
+                                                                                                            name="domainname"
+                                                                                                            value="{{authDict.login}}"
+                                                                                                            required>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="col-md-5">
+                                                                                                <b>Logout of Target
+                                                                                                    URL
+                                                                                                    *
+                                                                                                    :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">vpn_lock</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control ip"
+                                                                                                            placeholder="https://domain.com/logout.php"
+                                                                                                            name="logoutDomain"
+                                                                                                            required
+                                                                                                            value="{{authDict.logout}}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+
+
+
+
+                                                                                        </div>
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-1">
+
+                                                                                            </div>
+
+                                                                                            <div class="col-md-5">
+                                                                                                <b>Username HTML Class
+                                                                                                    Name *
+                                                                                                    :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">account_circle</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control"
+                                                                                                            placeholder="Username"
+                                                                                                            value="{{authDict.uname}}"
+                                                                                                            name="usernameclass"
+                                                                                                            required>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="col-md-5">
+                                                                                                <b>Password HTML Class
+                                                                                                    Name *
+                                                                                                    :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">security</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control"
+                                                                                                            placeholder="Password"
+                                                                                                            value="{{authDict.passwd}}"
+                                                                                                            name="passwordclass"
+                                                                                                            required>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                        </div>
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-1">
+
+                                                                                            </div>
+                                                                                            <div class="col-md-10">
+                                                                                                <b>Logged In
+                                                                                                    Regex(Anchor tage of
+                                                                                                    Logout)* :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">info</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control"
+                                                                                                            placeholder="<a href=logout.jsp>Logout</a>"
+                                                                                                            value=""
+                                                                                                            name="anchorlogout"
+                                                                                                            required>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-1">
+
+                                                                                            </div>
+                                                                                            <div class="col-md-10">
+                                                                                                <b>Logged In Response
+                                                                                                    Messages :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">sms</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control"
+                                                                                                            placeholder="Logged In Response Messages"
+                                                                                                            value=""
+                                                                                                            name="loginmsg">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-1">
+
+                                                                                            </div>
+                                                                                            <div class="col-md-10">
+                                                                                                <b>Logged Out Response
+                                                                                                    Messages :</b>
+                                                                                                <div
+                                                                                                    class="input-group">
+                                                                                                    <span
+                                                                                                        class="input-group-addon">
+                                                                                                        <i
+                                                                                                            class="material-icons">sms</i>
+                                                                                                    </span>
+                                                                                                    <div
+                                                                                                        class="form-line">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control"
+                                                                                                            placeholder="Logged Out Response Messages "
+                                                                                                            value=""
+                                                                                                            name="logoutmsg">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+
+
+
+                                                                                        <hr>
+                                                                                        {% if not authDict %}
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-8">
+
+                                                                                            </div>
+                                                                                            <div class="col-md-11">
+                                                                                                <button type="submit"
+                                                                                                    class="btn bg-green waves-effect btn-lg pull-right">
+                                                                                                    <i
+                                                                                                        class="material-icons">save</i>
+                                                                                                    <span>Save</span>
+                                                                                                </button>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        {% else %}
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <div
+                                                                                                    class="alert alert-warning text-center">
+                                                                                                    <strong>Note!</strong>
+                                                                                                    Please Click on
+                                                                                                    Reset Context Button
+                                                                                                    to Add
+                                                                                                    New Data.
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        {% endif %}
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+
+                                                    <div role="tabpanel" class="tab-pane fade " id="messages">
+                                                        <div class="tab-content">
+                                                            <div role="tabpanel" class="tab-pane fade in active"
+                                                                id="home_with_icon_title">
+                                                                <div class="row clearfix">
+                                                                    <div class="col-md-2">
+
+                                                                    </div>
+                                                                    <div class="col-md-8 col-sm-12">
+                                                                        <div class="card">
+                                                                            <div class="header shadow bg-info">
+                                                                                <h2>Provide Credential for Login on
+                                                                                    WebApp</h2>
+                                                                                </h2>
+                                                                            </div>
+                                                                            <div class="body">
+
+                                                                                {% csrf_token %}
+                                                                                <div class="row">
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="row clearfix">
+                                                                                        <div
+                                                                                            class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                                            <div class="card shadow">
+
+                                                                                                <div class="body">
+                                                                                                    <div
+                                                                                                        class="table-responsive">
+                                                                                                        <table
+                                                                                                            class="table table-bordered table-striped table-hover dataTable js-exportable shadow">
+                                                                                                            <thead>
+                                                                                                                <tr>
+                                                                                                                    <th
+                                                                                                                        class="btn-danger">
+                                                                                                                        Name
+                                                                                                                    </th>
+                                                                                                                    <th
+                                                                                                                        class="btn-danger">
+                                                                                                                        Enable
+                                                                                                                    </th>
+
+                                                                                                                    <th
+                                                                                                                        class="btn-danger">
+                                                                                                                        Action
+                                                                                                                    </th>
+                                                                                                                </tr>
+                                                                                                            </thead>
+
+                                                                                                            <tbody>
+
+                                                                                                                {% for x in newdata %}
+                                                                                                                {% if x %}
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        {{x.name}}
+                                                                                                                    </td>
+
+
+                                                                                                                    <td>
+
+
+                                                                                                                        <div
+                                                                                                                            class="switch">
+                                                                                                                            <label><input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    {{x.enabled}}><span
+                                                                                                                                    class="lever switch-col-green"></span></label>
+                                                                                                                        </div>
+
+
+                                                                                                                    </td>
+
+                                                                                                                    <td
+                                                                                                                        class="text-center">
+                                                                                                                        <a class="btn btn-warning shadow"
+                                                                                                                            href="{% url 'deleteuser' x.id %}"
+                                                                                                                            role="button"><i
+                                                                                                                                class="material-icons">delete
+                                                                                                                            </i></a>
+                                                                                                                    </td>
+
+                                                                                                                </tr>
+                                                                                                                {% endif %}
+                                                                                                                {% endfor %}
+
+
+
+
+                                                                                                            </tbody>
+                                                                                                        </table>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <hr>
+                                                                                {% for y in newdata%}
+                                                                                {% if not y %}
+                                                                                <div class="row">
+                                                                                    <div class="col-md-10">
+
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <button id="myBtn"
+                                                                                            class="btn btn-success btn-lg"
+                                                                                            data-target="#myModal">
+                                                                                            <i
+                                                                                                class="material-icons">person_add</i>
+                                                                                            <span>Add</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {% else %}
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div
+                                                                                            class="alert alert-warning text-center">
+                                                                                            <strong>Note!</strong>
+                                                                                            Note : Please Delete
+                                                                                            Current User to Add
+                                                                                            New User
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                {%endif %}
+                                                                                {% endfor %}
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="settings">
+
+                                                        <div class="tab-content">
+                                                            <div role="tabpanel" class="tab-pane fade in active"
+                                                                id="home_with_icon_title">
+                                                                <div class="row clearfix">
+                                                                    <div class="col-md-2">
+
+                                                                    </div>
+                                                                    <div class="col-md-8 col-sm-12">
+                                                                        <div class="card">
+                                                                            <div class="header shadow bg-info">
+                                                                                <h2>Select and Active Forced User</h2>
+                                                                                </h2>
+                                                                            </div>
+                                                                            <div class="body">
+                                                                                <form action="" method="">
+                                                                                    <table class="table table-bordered">
+
+                                                                                        <tbody>
+
+
+
+                                                                                            <tr>
+                                                                                                <th scope="row"
+                                                                                                    class="text-center">
+                                                                                                    Forced User Mode
+                                                                                                    is Enabled</th>
+                                                                                                <td>
+                                                                                                    <div class="switch">
+                                                                                                        <label><input
+                                                                                                                type="checkbox"
+                                                                                                                {{forcedata.0.enabled}}><span
+                                                                                                                class="lever switch-col-green"
+                                                                                                                name="forceuser"></span></label>
+                                                                                                    </div>
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <th scope="row"
+                                                                                                    class="text-center">
+                                                                                                    Forced User List
+                                                                                                </th>
+                                                                                                <td>
+
+                                                                                                    <select
+                                                                                                        class="selectpicker"
+                                                                                                        name="user">
+                                                                                                        {% for x in forcedata %}
+                                                                                                        <option>
+                                                                                                            {{x.name}}
+                                                                                                        </option>
+                                                                                                        {% endfor %}
+                                                                                                    </select>
+
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+
+
+
+                                                                                </form>
+                                                                                <br>
+                                                                                <hr>
+                                                                                {% if forcedata.0.enabled == "unchecked" %}
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12 ">
+                                                                                        <a class="btn btn-success shadow pull-right"
+                                                                                            href="{% url 'activeForceUser' %}"
+                                                                                            role="button"><i
+                                                                                                class="material-icons">delete
+                                                                                            </i><span>Active</span></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                {% endif %}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #END# Exportable Table -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add User</h4>
+
+            </div>
+            <hr>
+            <div class="modal-body">
+
+                <form method="POST" action="{% url 'createUser' %}">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name*</label>
+                        <input type="text" class="form-control" id="user" aria-describedby="emailHelp"
+                            placeholder="Name" name="user"><br>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">User Name*</label>
+                        <input type="text" class="form-control" id="uname" aria-describedby="emailHelp"
+                            placeholder="User Name" name="uname"><br>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Password*</label>
+                        <input type="password" class="form-control" id="pwd" aria-describedby="emailHelp"
+                            placeholder="Password" name="pass"><br>
+
+                    </div>
+                    <label>Enable</label>
+                    <div class="switch">
+                        <label><input type="checkbox" name="active"><span class="lever switch-col-green"></span></label>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <button type="submit" id="subbtn" class="btn btn-success waves-effect pull-right">
+                                <i class="material-icons">person_add</i>
+                                <span>Add User</span>
+                            </button>
+
+                            <button type="button" class="btn btn-danger waves-effect pull-right space"
+                                data-dismiss="modal">
+                                <i class="material-icons">backspace</i>
+                                <span>CANCEL</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-red">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Create
+    Scan</button>
+{% block js %}
+<!--Jquery DataTable Plugin Js-->
+<script src='{% static "plugins/jquery-datatable/jquery.dataTables.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.flash.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/jszip.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/pdfmake.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/vfs_fonts.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.html5.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.print.min.js" %}'></script>
+
+<script>
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+</script>
+
+{% endblock %}
+
+{% endblock %}

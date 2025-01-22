@@ -1,0 +1,194 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block dashboard_active %}active{%endblock%}
+
+{% block css %}
+<style>
+
+</style>
+{% endblock %}
+{% block body %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>DASHBOARD</h2>
+        </div>
+
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-pink hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">trending_up</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">HIGH VULNERABILITY</div>
+                        <div class="number count-to" data-from="0" data-to="300" data-speed="15"
+                            data-fresh-interval="20">{{high}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-orange hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">call_split</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">MEDIUM VULNERABILITY</div>
+                        <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                            data-fresh-interval="20">{{medium}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-light-green hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">trending_down</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">LOW VULNERABILITY</div>
+                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
+                            data-fresh-interval="20">{{low}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-cyan hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">public</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">TOTAL DOMAIN SCANNED</div>
+                        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
+                            data-fresh-interval="20">{{final_domain}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		{% if chartt %}
+        <div class="row clearfix" id="domme">
+            {% for x in chartt %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <h2>{{x.0}}</h2>
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <figure class="highcharts-figure">
+                            <div id="container{{x.1}}">
+
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+		{% else %}
+			<div class="row clearfix shadow">
+            
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="header shadow bg-red">
+                        <h2>Welcome User!!</h2>
+                        </h2>
+                    </div>
+                    <div class="body">
+						<h3 class="text-center">VULNERWEB (WEB VULNERABILITY SCANNER)</h3>
+						<hr>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="text-center">
+									<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{% static 'svg/dashh.png' %}" alt="">
+								</div>
+								<div class="text-center">
+									<h5>MONITOR TASK WITH GRAPHS</h5>
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+						  <div class="text-center">
+							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{% static 'svg/bugs.png' %}"
+							  alt="">
+						  </div>
+						  <div class="text-center">
+							<h5>FIND VULNERABILITY ON YOUR WEBSITE</h5>
+						  </div>
+						</div>
+
+						<div class="col-md-4">
+						  <div class="text-center">
+							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{% static 'svg/reports.png' %}"
+							  alt="">
+						  </div>
+						  <div class="text-center">
+							<h5>SHARE VULNERABILITY USING REPORTS</h5>
+						  </div>
+						</div>
+							
+						</div>
+					
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+		{% endif %}
+    </div>
+</section>
+
+
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="{% static 'js/mychart.js' %}"></script>
+
+
+
+<script>
+
+
+    window.onload = function () {
+
+        var mydata = [
+            ['Firefox', 45.0],
+            ['IE', 26.8],
+            {
+                name: 'Chrome',
+                y: 12.8,
+                sliced: true,
+                selected: true
+            },
+            ['Safari', 8.5],
+            ['Opera', 6.2],
+            ['Others', 0.7]
+        ]
+
+
+
+
+
+        {% for y in chartt %}
+
+
+        pieChart("container{{y.1}}", "{{y.0}}", {{y.2 | safe}})
+
+
+    {% endfor %}
+
+    }
+
+</script>
+
+{% endblock %}

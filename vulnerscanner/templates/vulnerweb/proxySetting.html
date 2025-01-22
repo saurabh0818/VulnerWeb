@@ -1,0 +1,233 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+
+    .bm {
+        margin-top: 20px !important;
+    }
+</style>
+{% endblock %}
+{% block general_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <h2>
+                            <i class="material-icons">vpn_lock</i> Proxy Setting
+                        </h2>
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="row clearfix">
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="card">
+                                            <div class="header shadow bg-info">
+                                                <h2>Note : Use Default Setting for Best
+                                                    Performance.</h2>
+                                                </h2>
+                                            </div>
+                                            <div class="body">
+                                                <form action="{% url 'proxyadd' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <blockquote class="m-b-25">
+                                                                <h4>Proxy</h4>
+                                                            </blockquote>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <b>IP Address * :</b>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">computer</i>
+                                                                </span>
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control ip"
+                                                                        placeholder="Ex: 255.255.255.255" name="ip">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-5">
+                                                            <b>Port Number * :</b>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">router</i>
+                                                                </span>
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="" value="8080" name="port">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <blockquote class="m-b-25">
+                                                                <h4>Authentication
+                                                                </h4>
+                                                            </blockquote>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <b>User Name * :</b>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">account_circle</i>
+                                                                </span>
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="User Name" value=""
+                                                                        name="useragent">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-5">
+                                                            <b>Password * :</b>
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon">
+                                                                    <i class="material-icons">fingerprint</i>
+                                                                </span>
+                                                                <div class="form-line">
+                                                                    <input type="password" class="form-control"
+                                                                        placeholder="Password" value=""
+                                                                        name="useragent">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-8">
+
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="submit"
+                                                                class="btn bg-green waves-effect btn-lg pull-right invisible">
+                                                                <i class="material-icons">update</i>
+                                                                <span>Update</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <a href="{% url 'deleteProxy' %}"
+                                                                class="btn bg-red waves-effect btn-lg mx-2 pull-right invisible">
+                                                                <i class="material-icons">delete</i>
+                                                                <span>Delete</span>
+                                                            </a>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-teal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Trigger
+    msgBox</button>
+
+{% block js %}
+
+<!-- Jquery Spinner Plugin Js -->
+<script src='{% static "plugins/jquery-spinner/js/jquery.spinner.js" %}'></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

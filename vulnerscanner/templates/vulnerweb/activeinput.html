@@ -1,0 +1,645 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<!-- Bootstrap Select Css -->
+<link href="{% static 'plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet" />
+<style>
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+</style>
+{% endblock %}
+{% block activescan_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>
+                                    <i class="material-icons">settings_input_composite</i> ACTIVE SCAN INPUT
+                                </h2>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <!-- Exportable Table -->
+                                <div class="row">
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+
+                                            <div class="body">
+                                                <!-- Nav tabs -->
+
+                                                <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#home"
+                                                            data-toggle="tab" aria-expanded="false">Injectable
+                                                            Target</a></li>
+                                                    <li role="presentation" class=""><a href="#profile"
+                                                            data-toggle="tab" aria-expanded="false">Input Vector
+                                                            Handler</a>
+                                                    </li>
+                                                    <li role="presentation" class=""><a href="#messages"
+                                                            data-toggle="tab" aria-expanded="false">Exclusion List</a>
+                                                    </li>
+
+                                                </ul>
+
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade active in" id="home">
+                                                        <div class="row clearfix">
+                                                            <div class="col-md-2">
+
+                                                            </div>
+                                                            <div class="col-md-8 col-sm-12">
+                                                                <div class="card">
+                                                                    <div class="header shadow bg-info">
+                                                                        <h2>Note : Please Choose Default Setting for
+                                                                            Best Performace.</h2>
+                                                                        </h2>
+                                                                    </div>
+                                                                    <div class="body">
+
+                                                                        <form action="{% url 'updateinjectable' %}"
+                                                                            method="POST">{% csrf_token %}
+                                                                            <table class="table table-bordered">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <th scope="row"
+                                                                                            class="text-right">
+                                                                                            Query String :</th>
+                                                                                        <td>
+                                                                                            <div class="switch">
+                                                                                                <label><input
+                                                                                                        type="checkbox"
+                                                                                                        value="{{injectData.queryString}}"
+                                                                                                        name="queryString"
+                                                                                                        {{injectData.queryString}}><span
+                                                                                                        class="lever switch-col-green"
+                                                                                                        name="forceuser"></span></label>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th scope="row"
+                                                                                            class="text-right">
+                                                                                            POST Data :</th>
+                                                                                        <td>
+                                                                                            <div class="switch">
+                                                                                                <label><input
+                                                                                                        type="checkbox"
+                                                                                                        value="{{injectData.postData}}"
+                                                                                                        {{injectData.postData}}
+                                                                                                        name="postData"><span
+                                                                                                        class="lever switch-col-green"
+                                                                                                        name="forceuser"></span></label>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <th scope="row"
+                                                                                            class="text-right">
+                                                                                            Cookies :</th>
+                                                                                        <td>
+                                                                                            <div class="switch">
+                                                                                                <label><input
+                                                                                                        type="checkbox"
+                                                                                                        value="{{injectData.cookies}}"
+                                                                                                        {{injectData.cookies}}
+                                                                                                        name="cookies"><span
+                                                                                                        class="lever switch-col-green"
+                                                                                                        name="forceuser"></span></label>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                    </tr>
+
+                                                                                    <tr>
+                                                                                        <th scope="row"
+                                                                                            class="text-right">
+                                                                                            HTTP Headers :</th>
+                                                                                        <td>
+                                                                                            <div class="switch">
+                                                                                                <label><input
+                                                                                                        type="checkbox"
+                                                                                                        value="{{injectData.http}}"
+                                                                                                        {{injectData.http}}
+                                                                                                        name="http"><span
+                                                                                                        class="lever switch-col-green"
+                                                                                                        name="forceuser"></span></label>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                    </tr>
+
+
+                                                                                    <tr>
+                                                                                        <th scope="row"
+                                                                                            class="text-right">
+                                                                                            URL Path :</th>
+                                                                                        <td>
+                                                                                            <div class="switch">
+                                                                                                <label><input
+                                                                                                        type="checkbox"
+                                                                                                        value="{{injectData.url}}"
+                                                                                                        {{injectData.url}}
+                                                                                                        name="url"><span
+                                                                                                        class="lever switch-col-green"
+                                                                                                        name="forceuser"></span></label>
+                                                                                            </div>
+                                                                                        </td>
+
+                                                                                    </tr>
+
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                            <hr>
+                                                                            <div class="row">
+                                                                                <div class="col-md-1">
+
+                                                                                </div>
+                                                                                <div class="col-md-10 ">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-success btn-lg shadow pull-right"
+                                                                                        role="button"><i
+                                                                                            class="material-icons">update
+                                                                                        </i><span>Update</span></button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                        <form action="{% url 'updateInput' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="tab-content">
+                                                                <div role="tabpanel" class="tab-pane fade in active"
+                                                                    id="home_with_icon_title">
+                                                                    <div class="row clearfix">
+                                                                        <div class="col-md-2">
+
+                                                                        </div>
+                                                                        <div class="col-md-8 col-sm-12">
+                                                                            <div class="card">
+                                                                                <div class="header shadow bg-info">
+                                                                                    <h2>Note : Choose Default Setting
+                                                                                        for Better
+                                                                                        Performace
+                                                                                    </h2>
+                                                                                    </h2>
+                                                                                </div>
+                                                                                <div class="body">
+                                                                                    <form action="" method="">
+                                                                                        <table
+                                                                                            class="table table-bordered">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <th scope="row"
+                                                                                                        class="text-right">
+                                                                                                        Multi-Part Form
+                                                                                                        Data: :
+                                                                                                    </th>
+                                                                                                    <td>
+                                                                                                        <div
+                                                                                                            class="switch">
+                                                                                                            <label><input
+                                                                                                                    type="checkbox"
+                                                                                                                    name="multidata"
+                                                                                                                    {{inputhandler1.multidata}}><span
+                                                                                                                    class="lever switch-col-green"
+                                                                                                                    name="forceuser"></span></label>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <th scope="row"
+                                                                                                        class="text-right">
+                                                                                                        XML
+                                                                                                        Tag/Attribute :
+                                                                                                    </th>
+                                                                                                    <td>
+                                                                                                        <div
+                                                                                                            class="switch">
+                                                                                                            <label><input
+                                                                                                                    type="checkbox"
+                                                                                                                    name="xml"
+                                                                                                                    {{inputhandler1.xml}}><span
+                                                                                                                    class="lever switch-col-green"
+                                                                                                                    name="forceuser"></span></label>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                </tr>
+
+                                                                                                <tr>
+                                                                                                    <th scope="row"
+                                                                                                        class="text-right">
+                                                                                                        JSON : </th>
+                                                                                                    <td>
+                                                                                                        <div
+                                                                                                            class="switch">
+                                                                                                            <label><input
+                                                                                                                    type="checkbox"
+                                                                                                                    name="json"
+                                                                                                                    {{inputhandler1.json}}><span
+                                                                                                                    class="lever switch-col-green"
+                                                                                                                    name="forceuser"></span></label>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                </tr>
+
+                                                                                                <tr>
+                                                                                                    <th scope="row"
+                                                                                                        class="text-right">
+                                                                                                        Google Web
+                                                                                                        Toolkit :
+
+                                                                                                    </th>
+                                                                                                    <td>
+                                                                                                        <div
+                                                                                                            class="switch">
+                                                                                                            <label><input
+                                                                                                                    type="checkbox"
+                                                                                                                    name="toolkit"
+                                                                                                                    {{inputhandler1.toolkit}}><span
+                                                                                                                    class="lever switch-col-green"
+                                                                                                                    name="forceuser"></span></label>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                </tr>
+
+
+                                                                                                <tr>
+                                                                                                    <th scope="row"
+                                                                                                        class="text-right">
+                                                                                                        OData Filter :
+                                                                                                    </th>
+                                                                                                    <td>
+                                                                                                        <div
+                                                                                                            class="switch">
+                                                                                                            <label><input
+                                                                                                                    type="checkbox"
+                                                                                                                    name="odata"
+                                                                                                                    {{inputhandler1.odata}}><span
+                                                                                                                    class="lever switch-col-green"
+                                                                                                                    name="forceuser"></span></label>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                </tr>
+
+
+
+                                                                                            </tbody>
+                                                                                        </table>
+
+                                                                                        <hr>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-1">
+
+                                                                                            </div>
+                                                                                            <div class="col-md-10 ">
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-success btn-lg shadow pull-right"
+                                                                                                    role="button"><i
+                                                                                                        class="material-icons">update
+                                                                                                    </i><span>Update</span></button>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+
+                                                    <div role="tabpanel" class="tab-pane fade " id="messages">
+                                                        <div class="tab-content">
+                                                            <div role="tabpanel" class="tab-pane fade in active"
+                                                                id="home_with_icon_title">
+                                                                <div class="row clearfix">
+
+                                                                    <div class="col-md-12 col-sm-12">
+                                                                        <div class="card">
+                                                                            <div class="header shadow bg-info">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-8">
+                                                                                        <h2>Note : Choose Default
+                                                                                            Setting for
+                                                                                            Better
+                                                                                            Performace</h2>
+                                                                                        </h2>
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <button id="myBtn"
+                                                                                            class="btn btn-warning waves-effect btn-sm pull-right"
+                                                                                            data-target="#myModal"><i
+                                                                                                class="material-icons">add_circle</i>
+                                                                                            <span>Add</span>
+                                                                                        </button>
+
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                            </div>
+
+                                                                            <div class="body">
+
+                                                                                <div class="table-responsive">
+                                                                                    <div id="DataTables_Table_0_wrapper"
+                                                                                        class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-12">
+                                                                                                <table
+                                                                                                    class="table table-bordered table-striped table-hover js-basic-example dataTable"
+                                                                                                    id="DataTables_Table_0"
+                                                                                                    role="grid"
+                                                                                                    aria-describedby="DataTables_Table_0_info">
+                                                                                                    <thead
+                                                                                                        class="bg-red">
+                                                                                                        <tr role="row">
+                                                                                                            <th>
+                                                                                                                URL
+                                                                                                            </th>
+                                                                                                            <th>
+                                                                                                                LOCATION
+                                                                                                            </th>
+
+                                                                                                            <th>
+                                                                                                                NAME
+                                                                                                            </th>
+
+                                                                                                            <th>
+                                                                                                                ACTION
+                                                                                                            </th>
+
+
+                                                                                                        </tr>
+                                                                                                    </thead>
+
+                                                                                                    <tbody>
+                                                                                                        {% for x in excludesend%}
+
+                                                                                                        <tr role="row"
+                                                                                                            class="odd">
+                                                                                                            <td>
+                                                                                                                {{x.url}}
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                {{x.location}}
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                {{x.name}}
+                                                                                                            </td>
+                                                                                                            <td
+                                                                                                                class="text-center">
+                                                                                                                <a class="btn btn-danger shadow"
+                                                                                                                    role="button"
+                                                                                                                    disabled=""><i
+                                                                                                                        class="material-icons">delete
+                                                                                                                    </i></a>
+
+                                                                                                            </td>
+                                                                                                        </tr>
+
+                                                                                                        {% endfor %}
+
+                                                                                                        {% for x in userexclude%}
+
+                                                                                                        <tr role="row"
+                                                                                                            class="odd">
+                                                                                                            <td>
+                                                                                                                {{x.url}}
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                {{x.location}}
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                {{x.name}}
+                                                                                                            </td>
+                                                                                                            <td
+                                                                                                                class="text-center">
+                                                                                                                <a href="{% url 'deleteeclude' x.id %}"
+                                                                                                                    class="btn btn-danger shadow"
+                                                                                                                    role="button"><i
+                                                                                                                        class="material-icons">delete
+                                                                                                                    </i></a>
+
+                                                                                                            </td>
+                                                                                                        </tr>
+
+                                                                                                        {% endfor %}
+                                                                                                    </tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #END# Exportable Table -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Exclude List</h4>
+
+            </div>
+            <hr>
+            <div class="modal-body">
+
+                <form method="POST" action="{% url 'addexclude' %}">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="exampleInputEmail1">NAME*</label>
+                                    <input type="text" class="form-control required" id="csrf"
+                                        aria-describedby="emailHelp" placeholder="Name" name="name" required>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="exampleInputEmail1">URL*</label>
+                                    <input type="text" class="form-control" id="csrf" aria-describedby="emailHelp"
+                                        placeholder="http://google.com" name="url">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="exampleInputEmail1">LOCATION*</label>
+                                    <input type="text" class="form-control" id="csrf" aria-describedby="emailHelp"
+                                        placeholder="Location" name="location">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" id="subbtn" class="btn btn-success waves-effect pull-right">
+                                <i class="material-icons">add_circle</i>
+                                <span>Add Token</span>
+                            </button>
+                            <button type="button" class="btn btn-danger waves-effect pull-right space"
+                                data-dismiss="modal">
+                                <i class="material-icons">backspace</i>
+                                <span>CANCEL</span>
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-red">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Create
+    Scan</button>
+{% block js %}
+<!-- Jquery DataTable Plugin Js -->
+<script src='{% static "plugins/jquery-datatable/jquery.dataTables.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.flash.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/jszip.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/pdfmake.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/vfs_fonts.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.html5.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.print.min.js" %}'></script>
+
+<script>
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+</script>
+
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,303 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<!-- Bootstrap Spinner Css -->
+<link href='{% static "plugins/jquery-spinner/css/bootstrap-spinner.css" %}' rel=" stylesheet">
+<!-- Bootstrap Select Css -->
+<link href="{% static 'plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet" />
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+
+    .bm {
+        margin-top: 20px !important;
+    }
+</style>
+{% endblock %}
+{% block activescan_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <h2>
+                            <i class="material-icons">settings_backup_restore</i> Active Scan Setting
+                        </h2>
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="row clearfix">
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-8 ">
+                                        <div class="card">
+                                            <div class="header shadow bg-info">
+                                                <h2>Note : Choose default Setting for Better Performance</h2>
+
+                                            </div>
+                                            <div class="body">
+                                                <form action="{% url 'activescansetting' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <table class="table table-bordered">
+
+                                                        <tbody>
+
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Concurrent Scans : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{conScan}}"
+                                                                            id="example-number-input" name="conScan">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Threads per Host : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{threadHost}}"
+                                                                            id="example-number-input" name="threadHost">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Result : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxResultList}}"
+                                                                            id="example-number-input"
+                                                                            name="maxResultList">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Rule Duration (0 for unlimited) : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxRuleDuration}}"
+                                                                            id="example-number-input"
+                                                                            name="maxRuleDuration">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Scan Duration (0 for unlimited) : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxScanDuration}}"
+                                                                            id="example-number-input"
+                                                                            name="maxScanDuration">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Delay Time(ms) : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{delayTime}}"
+                                                                            id="example-number-input" name="delayTime">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Inject Plugin ID in Header :</th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" name="inject"
+                                                                                {{injectionPlugin}}
+                                                                                value="{{injectionPlugin}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Handle Anti-CSRF Tokens : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" name="csrf"
+                                                                                {{Csrf}} value="{{Csrf}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Active Scan Policy : </th>
+                                                                <td>
+                                                                    <select id="inputState" class="form-control"
+                                                                        name="attackPolicy">
+                                                                        <option selected>{{attackPolicy}}</option>
+
+                                                                    </select>
+
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Default Policy : </th>
+                                                                <td>
+                                                                    <select id="inputState" class="form-control"
+                                                                        name="defaulPolicy">
+                                                                        <option selected>{{defaulPolicy}}</option>
+
+                                                                    </select>
+
+                                                                </td>
+
+                                                            </tr>
+
+
+
+
+
+
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+                                                    <br>
+                                                    <hr>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 ">
+                                                            <button type="submit"
+                                                                class="btn btn-success btn-lg shadow pull-right"
+                                                                role="button"><i class="material-icons">update
+                                                                </i><span>Update</span></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-teal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Trigger
+    msgBox</button>
+
+{% block js %}
+
+<!-- Jquery Spinner Plugin Js -->
+<script src='{% static "plugins/jquery-spinner/js/jquery.spinner.js" %}'></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

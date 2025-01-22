@@ -1,0 +1,370 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<!-- Bootstrap Spinner Css -->
+<link href='{% static "plugins/jquery-spinner/css/bootstrap-spinner.css" %}' rel=" stylesheet">
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+
+    .bm {
+        margin-top: 20px !important;
+    }
+</style>
+{% endblock %}
+{% block passive_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <h2>
+                            <i class="material-icons">wifi_tethering</i> Spider Scan Rules
+                        </h2>
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="row clearfix">
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-8 ">
+                                        <div class="card">
+                                            <div class="header shadow bg-info">
+                                                <h2>Note : Choose default Setting for Better Performance</h2>
+
+                                            </div>
+                                            <div class="body">
+                                                <form action="{% url 'updatespider' %}" method="POST">{% csrf_token %}
+                                                    <table class="table table-bordered">
+
+                                                        <tbody>
+
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Crawl Depth : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxDept}}"
+                                                                            id="example-number-input" name="maxDept">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Concurrent Scans : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxConcurrent}}"
+                                                                            id="example-number-input"
+                                                                            name="maxConcurrent">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Duration : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxDuration}}"
+                                                                            id="example-number-input"
+                                                                            name="maxDuration">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Children to Crawl : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxChildren}}"
+                                                                            id="example-number-input"
+                                                                            name="maxChildren">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Max Parse Size (bytes) : </th>
+                                                                <td>
+                                                                    <div class="col-10">
+                                                                        <input class="form-control" type="number"
+                                                                            value="{{maxParse}}"
+                                                                            id="example-number-input" name="maxParse">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Send Referer Header</th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{referHeader1}}
+                                                                                name="referHeader"
+                                                                                value="{{referHeader1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Accept Cookies : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{acceptCookies1}}
+                                                                                name="acceptCookies"
+                                                                                value="{{acceptCookies1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Process Forms and Issue GET Request : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{processForm1}}
+                                                                                name="processForm"
+                                                                                value="{{processForm1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Issue POST Requests : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{postForm1}}
+                                                                                name="postForm"
+                                                                                value="{{postForm1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Parse HTML Comments : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{parseComment1}}
+                                                                                name="parseComment"
+                                                                                value="{{parseComment1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Parse Robot.txt for New URIs : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{parseRobot1}}
+                                                                                name="parseRobot"
+                                                                                value="{{parseRobot1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Parse Site MAP for New URIs : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{parseSiteMap1}}
+                                                                                name="parseSiteMap"
+                                                                                value="{{parseSiteMap1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Parse SVN Entries for New URIs : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{svnEntries1}}
+                                                                                name="svnEntries"
+                                                                                value="{{svnEntries1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right">
+                                                                    Parse GIT Metadata for New URIs : </th>
+                                                                <td>
+                                                                    <div class="switch">
+                                                                        <label><input type="checkbox" {{parseGit1}}
+                                                                                name="parseGit"
+                                                                                value="{{parseGit1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <th scope="row" class="text-right ">
+                                                                    Handle O-Data Specific Parameters : </th>
+                                                                <td>
+                                                                    <div class="switch ">
+                                                                        <label><input type="checkbox" {{handleO_data1}}
+                                                                                name="handleO_data"
+                                                                                value="{{handleO_data1}}"><span
+                                                                                class="lever switch-col-green"></span></label>
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+                                                    <br>
+                                                    <hr>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 ">
+                                                            <button type="submit"
+                                                                class="btn btn-success btn-lg shadow pull-right"
+                                                                role="button"><i class="material-icons">update
+                                                                </i><span>Update</span></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-teal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Trigger
+    msgBox</button>
+
+{% block js %}
+
+<!-- Jquery Spinner Plugin Js -->
+<script src='{% static "plugins/jquery-spinner/js/jquery.spinner.js" %}'></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

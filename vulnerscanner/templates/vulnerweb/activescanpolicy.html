@@ -1,0 +1,853 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<!-- Bootstrap Select Css -->
+<link href="{% static 'plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet" />
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+
+    .bm {
+        margin-top: 20px !important;
+    }
+</style>
+{% endblock %}
+{% block activescan_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <h2>
+                            <i class="material-icons">receipt</i> Active Scan Policy
+                        </h2>
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="row clearfix">
+
+                                    <div class="col-md-12 ">
+                                        <div class="card">
+                                            <div class="header shadow bg-info">
+                                                <h2>Note : Choose default Setting for Better Performance</h2>
+
+                                            </div>
+
+                                            <div class="body">
+
+                                                <div class="row">
+
+                                                    <div class="body">
+
+                                                        <!-- Nav tabs -->
+                                                        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                                            <li role="presentation" class="active"><a href="#home"
+                                                                    data-toggle="tab">DEFAULT POLICY</a></li>
+
+                                                        </ul>
+
+                                                        <!-- Tab panes -->
+                                                        <div class="tab-content">
+                                                            <div role="tabpanel" class="tab-pane fade in active"
+                                                                id="home">
+                                                                <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+
+                                                                    <div class="panel-group" id="accordion_4"
+                                                                        role="tablist" aria-multiselectable="true">
+                                                                        <div class="panel panel-info">
+                                                                            <div class="panel-heading" role="tab"
+                                                                                id="headingOne_4">
+                                                                                <h4 class="panel-title">
+                                                                                    <a role="button"
+                                                                                        data-toggle="collapse"
+                                                                                        data-parent="#accordion_4"
+                                                                                        href="#collapseOne_4"
+                                                                                        aria-expanded="true"
+                                                                                        aria-controls="collapseOne_4">
+                                                                                        Information Gathering
+                                                                                    </a>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="collapseOne_4"
+                                                                                class="panel-collapse collapse in"
+                                                                                role="tabpanel"
+                                                                                aria-labelledby="headingOne_4">
+                                                                                <div class="panel-body">
+
+                                                                                    <!-- table start from Here -->
+
+                                                                                    <div class="table-responsive">
+                                                                                        <div id="DataTables_Table_0_wrapper"
+                                                                                            class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <table
+                                                                                                        class="table table-bordered table-striped table-hover js-basic-example dataTable"
+                                                                                                        id="DataTables_Table_0"
+                                                                                                        role="grid"
+                                                                                                        aria-describedby="DataTables_Table_0_info">
+                                                                                                        <thead
+                                                                                                            class="bg-red">
+                                                                                                            <tr
+                                                                                                                role="row">
+                                                                                                                <th>
+                                                                                                                    Plugins
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    Alert
+                                                                                                                    Threshold
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Attack
+                                                                                                                    Strength
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Active
+                                                                                                                </th>
+
+
+                                                                                                            </tr>
+                                                                                                        </thead>
+
+                                                                                                        <tbody>
+
+                                                                                                            {% for x in information %}
+
+                                                                                                            <tr role="row"
+                                                                                                                class="odd">
+                                                                                                                <td>
+                                                                                                                    {{x.name}}
+                                                                                                                </td>
+                                                                                                                <td>
+
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{x.alertThreshold}}"
+                                                                                                                            active>
+                                                                                                                            {{x.alertThreshold}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+
+
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{x.attackStrength}}"
+                                                                                                                            active>
+                                                                                                                            {{x.attackStrength}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+                                                                                                                </td>
+                                                                                                                {% if x.enabled == "true" %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    checked=""
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% else %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% endif %}
+
+
+                                                                                                            </tr>
+                                                                                                            {% endfor %}
+
+
+
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div><br>
+
+                                                                                    <!-- table end Here -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="panel panel-info">
+                                                                            <div class="panel-heading" role="tab"
+                                                                                id="headingTwo_4">
+                                                                                <h4 class="panel-title">
+                                                                                    <a class="collapsed" role="button"
+                                                                                        data-toggle="collapse"
+                                                                                        data-parent="#accordion_4"
+                                                                                        href="#collapseTwo_4"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="collapseTwo_4">
+                                                                                        Server Security
+                                                                                    </a>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="collapseTwo_4"
+                                                                                class="panel-collapse collapse"
+                                                                                role="tabpanel"
+                                                                                aria-labelledby="headingTwo_4">
+                                                                                <div class="panel-body">
+
+                                                                                    <!-- table start from Here -->
+
+                                                                                    <div class="table-responsive">
+                                                                                        <div id="DataTables_Table_0_wrapper"
+                                                                                            class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <table
+                                                                                                        class="table table-bordered table-striped table-hover js-basic-example dataTable"
+                                                                                                        id="DataTables_Table_0"
+                                                                                                        role="grid"
+                                                                                                        aria-describedby="DataTables_Table_0_info">
+                                                                                                        <thead
+                                                                                                            class="bg-red">
+                                                                                                            <tr
+                                                                                                                role="row">
+                                                                                                                <th>
+                                                                                                                    Plugins
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    Alert
+                                                                                                                    Threshold
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Attack
+                                                                                                                    Strength
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Active
+                                                                                                                </th>
+
+
+                                                                                                            </tr>
+                                                                                                        </thead>
+
+                                                                                                        <tbody>
+
+                                                                                                            {% for y in server %}
+                                                                                                            <tr role="row"
+                                                                                                                class="odd">
+                                                                                                                <td>
+                                                                                                                    {{y.name}}
+                                                                                                                </td>
+                                                                                                                <td>
+
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{y.alertThreshold}}"
+                                                                                                                            active>
+                                                                                                                            {{y.alertThreshold}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+
+
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{y.attackStrength}}"
+                                                                                                                            active>
+                                                                                                                            {{y.attackStrength}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+                                                                                                                </td>
+
+                                                                                                                {% if y.enabled == "true" %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    checked=""
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% else %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% endif %}
+
+
+                                                                                                            </tr>
+                                                                                                            {% endfor %}
+
+
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- table end Here -->
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="panel panel-info">
+                                                                            <div class="panel-heading" role="tab"
+                                                                                id="headingThree_4">
+                                                                                <h4 class="panel-title">
+                                                                                    <a class="collapsed" role="button"
+                                                                                        data-toggle="collapse"
+                                                                                        data-parent="#accordion_4"
+                                                                                        href="#collapseThree_4"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="collapseThree_4">
+                                                                                        Miscellaneous
+                                                                                    </a>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="collapseThree_4"
+                                                                                class="panel-collapse collapse"
+                                                                                role="tabpanel"
+                                                                                aria-labelledby="headingThree_4">
+                                                                                <div class="panel-body">
+                                                                                    <!-- table start from Here -->
+
+                                                                                    <div class="table-responsive">
+                                                                                        <div id="DataTables_Table_0_wrapper"
+                                                                                            class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <table
+                                                                                                        class="table table-bordered table-striped table-hover js-basic-example dataTable"
+                                                                                                        id="DataTables_Table_0"
+                                                                                                        role="grid"
+                                                                                                        aria-describedby="DataTables_Table_0_info">
+                                                                                                        <thead
+                                                                                                            class="bg-red">
+                                                                                                            <tr
+                                                                                                                role="row">
+                                                                                                                <th>
+                                                                                                                    Plugins
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    Alert
+                                                                                                                    Threshold
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Attack
+                                                                                                                    Strength
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Active
+                                                                                                                </th>
+
+
+                                                                                                            </tr>
+                                                                                                        </thead>
+
+                                                                                                        <tbody>
+                                                                                                            {% for z in Miscellaneous %}
+
+                                                                                                            <tr role="row"
+                                                                                                                class="odd">
+                                                                                                                <td>
+                                                                                                                    {{z.name}}
+                                                                                                                </td>
+                                                                                                                <td>
+
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{z.alertThreshold}}"
+                                                                                                                            active>
+                                                                                                                            {{z.alertThreshold}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+
+
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{z.attackStrength}}"
+                                                                                                                            active>
+                                                                                                                            {{z.attackStrength}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+                                                                                                                </td>
+
+                                                                                                                {% if z.enabled == "true" %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    checked=""
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% else %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% endif %}
+
+
+                                                                                                            </tr>
+                                                                                                            {% endfor %}
+
+
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- table end Here -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="panel panel-info">
+                                                                            <div class="panel-heading" role="tab"
+                                                                                id="headingFour_4">
+                                                                                <h4 class="panel-title">
+                                                                                    <a class="collapsed" role="button"
+                                                                                        data-toggle="collapse"
+                                                                                        data-parent="#accordion_4"
+                                                                                        href="#collapseFour_4"
+                                                                                        aria-expanded="false"
+                                                                                        aria-controls="collapseFour_4">
+                                                                                        Injection
+                                                                                    </a>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="collapseFour_4"
+                                                                                class="panel-collapse collapse"
+                                                                                role="tabpanel"
+                                                                                aria-labelledby="headingFour_4">
+                                                                                <div class="panel-body">
+                                                                                    <!-- table start from Here -->
+
+                                                                                    <div class="table-responsive">
+                                                                                        <div id="DataTables_Table_0_wrapper"
+                                                                                            class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <table
+                                                                                                        class="table table-bordered table-striped table-hover js-basic-example dataTable"
+                                                                                                        id="DataTables_Table_0"
+                                                                                                        role="grid"
+                                                                                                        aria-describedby="DataTables_Table_0_info">
+                                                                                                        <thead
+                                                                                                            class="bg-red">
+                                                                                                            <tr
+                                                                                                                role="row">
+                                                                                                                <th>
+                                                                                                                    Plugins
+                                                                                                                </th>
+                                                                                                                <th>
+                                                                                                                    Alert
+                                                                                                                    Threshold
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Attack
+                                                                                                                    Strength
+                                                                                                                </th>
+
+                                                                                                                <th>
+                                                                                                                    Active
+                                                                                                                </th>
+
+
+                                                                                                            </tr>
+                                                                                                        </thead>
+
+                                                                                                        <tbody>
+
+                                                                                                            {% for p in Injection %}
+                                                                                                            <tr role="row"
+                                                                                                                class="odd">
+                                                                                                                <td>
+                                                                                                                    {{p.name}}
+                                                                                                                </td>
+                                                                                                                <td>
+
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{p.alertThreshold}}"
+                                                                                                                            active>
+                                                                                                                            {{p.alertThreshold}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+
+
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <select
+                                                                                                                        class="selectpicker"
+                                                                                                                        name="user">
+                                                                                                                        <option
+                                                                                                                            value="{{p.attackStrength}}"
+                                                                                                                            active>
+                                                                                                                            {{p.attackStrength}}
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Low"
+                                                                                                                            active>
+                                                                                                                            Low
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Medium"
+                                                                                                                            active>
+                                                                                                                            Medium
+                                                                                                                        </option>
+                                                                                                                        <option
+                                                                                                                            value="Hight"
+                                                                                                                            active>
+                                                                                                                            High
+                                                                                                                        </option>
+
+                                                                                                                    </select>
+                                                                                                                </td>
+
+                                                                                                                {% if p.enabled == "true" %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    checked=""
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% else %}
+                                                                                                                <td
+                                                                                                                    class="text-center">
+                                                                                                                    <div
+                                                                                                                        class="demo-switch">
+                                                                                                                        <div
+                                                                                                                            class="switch ">
+                                                                                                                            <label>NO<input
+                                                                                                                                    type="checkbox"
+                                                                                                                                    name="checkme"><span
+                                                                                                                                    class="lever switch-col-red"></span>YES</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                {% endif %}
+
+
+                                                                                                            </tr>
+                                                                                                            {% endfor %}
+
+
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- table end Here -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-teal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Trigger
+    msgBox</button>
+
+{% block js %}
+
+
+<!--Jquery DataTable Plugin Js-->
+<script src='{% static "plugins/jquery-datatable/jquery.dataTables.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.flash.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/jszip.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/pdfmake.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/vfs_fonts.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.html5.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.print.min.js" %}'></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

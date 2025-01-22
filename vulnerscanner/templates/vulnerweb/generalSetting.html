@@ -1,0 +1,245 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<!-- Bootstrap Spinner Css -->
+<link href='{% static "plugins/jquery-spinner/css/bootstrap-spinner.css" %}' rel=" stylesheet">
+
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+
+    .bm {
+        margin-top: 20px !important;
+    }
+</style>
+{% endblock %}
+{% block general_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <h2>
+                            <i class="material-icons">settings</i> General Setting
+                        </h2>
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="row clearfix">
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="card">
+                                            <div class="header shadow bg-info">
+                                                <h2>Note : Use Default Setting for Best
+                                                    Performance.</h2>
+                                                </h2>
+                                            </div>
+                                            <div class="body">
+                                                <form action="{% url 'generalsettingupdate' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="row"><br>
+
+                                                        <div class="col-md-4">
+                                                            <h5>HTTP Timeout in Seconds * :</h5>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <div class="input-group spinner " data-trigger="spinner">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control text-center"
+                                                                        value="{{timeOutSec}}" data-rule="quantity"
+                                                                        name="http_timeout">
+                                                                </div>
+                                                                <span class="input-group-addon">
+                                                                    <a href="javascript:;" class="spin-up"
+                                                                        data-spin="up"><i
+                                                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                                                    <a href="javascript:;" class="spin-down"
+                                                                        data-spin="down"><i
+                                                                            class="glyphicon glyphicon-chevron-down"></i></a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <h5>Default User Agent * :</h5>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="" value="{{defaultUserAgent}}"
+                                                                        name="useragent">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <h5>Single Cookie Request Header :</h5>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="switch">
+                                                                <label><input type="checkbox" {{reqCookHead}}
+                                                                        name="cookierequest"><span
+                                                                        class="lever switch-col-red"></span></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <h5>Enable(Global) HTTP State</h5>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="switch">
+                                                                <label><input type="checkbox" {{httpState}}
+                                                                        name="httpstate"><span
+                                                                        class="lever switch-col-red"></span></label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <blockquote class="m-b-25">
+                                                                <h4>DNS</h4>
+                                                            </blockquote>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row"><br>
+                                                        <div class="col-md-4">
+                                                            <h5>TimeOut * :</h5>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <div class="input-group spinner" data-trigger="spinner">
+                                                                <div class="form-line">
+                                                                    <input type="text" class="form-control text-center"
+                                                                        value="{{dnsTime}}" data-rule="quantity"
+                                                                        name="timeout">
+                                                                </div>
+                                                                <span class="input-group-addon">
+                                                                    <a href="javascript:;" class="spin-up"
+                                                                        data-spin="up"><i
+                                                                            class="glyphicon glyphicon-chevron-up"></i></a>
+                                                                    <a href="javascript:;" class="spin-down"
+                                                                        data-spin="down"><i
+                                                                            class="glyphicon glyphicon-chevron-down"></i></a>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button type="submit"
+                                                                class="btn bg-red waves-effect btn-lg pull-right">
+                                                                <i class="material-icons">update</i>
+                                                                <span>Update</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-teal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Trigger
+    msgBox</button>
+
+{% block js %}
+
+<!-- Jquery Spinner Plugin Js -->
+<script src='{% static "plugins/jquery-spinner/js/jquery.spinner.js" %}'></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+
+
+
+</script>
+
+{% endblock %}
+
+
+{% endblock %}

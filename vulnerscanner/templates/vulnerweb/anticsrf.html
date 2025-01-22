@@ -1,0 +1,325 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+
+    blockquote {
+        border-left: 5px solid orangered;
+    }
+
+    .bm {
+        margin-top: 20px !important;
+    }
+</style>
+{% endblock %}
+{% block general_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow bg-red">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>
+                                    <i class="material-icons">security</i> Anti Csrf Token
+                                </h2>
+                            </div>
+                            <div class="col-md-8">
+                                <button id="myBtn" class="btn btn-warning waves-effect btn-lg pull-right"
+                                    data-target="#myModal"><i class="material-icons">add_circle</i>
+                                    <span>Add</span>
+                                </button>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div class="row clearfix">
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <div class="card">
+                                            <div class="header shadow bg-info">
+
+                                                <h2>Note : You Cant Delete Default Csrf Token </h2>
+                                                </h2>
+
+                                            </div>
+                                            <div class="body">
+                                                <div class="row">
+
+
+                                                    <div class="col-md-12">
+                                                        <div class="row clearfix">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="card">
+
+                                                                    <div class="body">
+                                                                        <div class="table-responsive">
+                                                                            <div id="DataTables_Table_0_wrapper"
+                                                                                class="dataTables_wrapper form-inline dt-bootstrap">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <table
+                                                                                            class="table table-bordered table-striped table-hover js-basic-example dataTable"
+                                                                                            id="DataTables_Table_0"
+                                                                                            role="grid"
+                                                                                            aria-describedby="DataTables_Table_0_info">
+                                                                                            <thead class="bg-red">
+                                                                                                <tr role="row">
+                                                                                                    <th>
+                                                                                                        Name</th>
+                                                                                                    <th>
+                                                                                                        State</th>
+
+                                                                                                    <th>
+                                                                                                        Action</th>
+
+
+                                                                                                </tr>
+                                                                                            </thead>
+
+                                                                                            <tbody>
+                                                                                                {% for x in default%}
+                                                                                                <tr role="row"
+                                                                                                    class="odd">
+                                                                                                    <td>
+                                                                                                        {{x}}</td>
+                                                                                                    <td
+                                                                                                        class="text-center">
+                                                                                                        <div
+                                                                                                            class="demo-switch">
+                                                                                                            <div
+                                                                                                                class="switch ">
+                                                                                                                <label>OFF<input
+                                                                                                                        type="checkbox"
+                                                                                                                        checked=""
+                                                                                                                        disabled><span
+                                                                                                                        class="lever "></span>ON</label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                    <td
+                                                                                                        class="text-center">
+                                                                                                        <a class="btn btn-danger shadow"
+                                                                                                            role="button"
+                                                                                                            disabled><i
+                                                                                                                class="material-icons">delete
+                                                                                                            </i></a>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                {% endfor %}
+                                                                                                {% for y in usercsrf %}
+                                                                                                <tr role="row"
+                                                                                                    class="odd">
+                                                                                                    <td>
+                                                                                                        {{y}}</td>
+                                                                                                    <td
+                                                                                                        class="text-center">
+                                                                                                        <div
+                                                                                                            class="demo-switch">
+                                                                                                            <div
+                                                                                                                class="switch ">
+                                                                                                                <label>OFF<input
+                                                                                                                        type="checkbox"
+                                                                                                                        checked=""
+                                                                                                                        disabled><span
+                                                                                                                        class="lever "></span>ON</label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </td>
+
+                                                                                                    <td
+                                                                                                        class="text-center">
+                                                                                                        <a href="{% url 'deletecsrf' y %}"
+                                                                                                            class="btn btn-success shadow"
+                                                                                                            role="button"><i
+                                                                                                                class="material-icons">delete
+                                                                                                            </i></a>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                                {% endfor %}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Csrf Token</h4>
+
+            </div>
+            <hr>
+            <div class="modal-body">
+
+                <form method="POST" action="{% url 'addcsrf' %}">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="exampleInputEmail1">Csrf Name*</label>
+                                    <input type="text" class="form-control" id="csrf" aria-describedby="emailHelp"
+                                        placeholder="Anti-Csrf Token" name="csrf">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <small id="emailHelp" class="form-text text-muted text-danger">Note : Enabled by
+                                default</small>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" id="subbtn" class="btn btn-success waves-effect pull-right">
+                                <i class="material-icons">add_circle</i>
+                                <span>Add Token</span>
+                            </button>
+                            <button type="button" class="btn btn-danger waves-effect pull-right space"
+                                data-dismiss="modal">
+                                <i class="material-icons">backspace</i>
+                                <span>CANCEL</span>
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-teal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Trigger
+    msgBox</button>
+
+{% block js %}
+
+<!--Jquery DataTable Plugin Js-->
+<script src='{% static "plugins/jquery-datatable/jquery.dataTables.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.flash.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/jszip.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/pdfmake.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/vfs_fonts.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.html5.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.print.min.js" %}'></script>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+    $('#subbtn').click(function () {
+        $('#myModal').modal('hide');
+    });
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

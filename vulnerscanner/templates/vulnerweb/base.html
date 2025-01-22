@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html>
+{% load static %}
+{% load sweetify %}
+{% if user.is_authenticated %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>VulnerWeb (Web Assesment Manager)</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static '/images/head.png' %}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href='{% static "plugins/bootstrap/css/bootstrap.css" %}' rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href='{% static "plugins/node-waves/waves.css" %}' rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href='{% static "css/style.css" %}' rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href='{% static "css/themes/all-themes.css" %}' rel="stylesheet" />
+
+    <link href='{% static "plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" %}' rel="stylesheet">
+
+    {% block css %}
+
+    {% endblock %}
+
+</head>
+
+<body class="theme-red">
+
+    {% sweetify %}
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="index.html">VULNERWEB (WEB VULNERABILITY SCANNER)</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <!-- Tasks -->
+                    <li class="dropdown set-me">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons waves-effect" title="Update">system_update_alt </i>
+                        </a>
+                    </li>
+                    <!-- #END# Tasks -->
+
+                    <!-- LogOut -->
+                    <li class="dropdown clearfix js-sweetalert">
+                        <a href="{% url 'logout' %}" data-type="confirm">
+                            <i class="material-icons waves-effect" title="LogOut">lock </i>
+                        </a>
+                    </li>
+                    <!-- #END# Info -->
+
+                    <!-- LogOut -->
+                    <li class="dropdown set-me">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons waves-effect" title="LogOut">error </i>
+                        </a>
+                    </li>
+                    <!-- #END# Info -->
+
+                    <!--<li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src='{% static "images/user.png" %}' width="48" height="48" alt="User" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user.username|capfirst}}</div>
+                    <div class="email">admin@gmail.com</div>
+
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="{% block dashboard_active %} {% endblock %}">
+                        <a href="{% url 'dashboard' %}">
+                            <i class="material-icons">dashboard</i>
+                            <span>DASHBOARD</span>
+                        </a>
+                    </li>
+
+
+                    <li class="{% block task_active %} {% endblock %}">
+                        <a href="{% url 'scan' %}">
+                            <i class="material-icons">assignment</i>
+                            <span>SCAN</span>
+                        </a>
+
+                    </li>
+                    <li class="{% block general_active %} {% endblock %}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">settings</i>
+                            <span>GENERAL CONFIG</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{% url 'generalsetting' %}">
+                                    <i class="material-icons">next_week</i>
+                                    <span>GENERAL SETTINGS</span>
+                                </a>
+
+                            </li>
+
+                            <li>
+                                <a href="{% url 'proxysetting' %}">
+                                    <i class="material-icons">vpn_lock</i>
+                                    <span>PROXY SETTINGS</span></a>
+                            </li>
+                            <li>
+                                <a href="{% url 'context' %}">
+                                    <i class="material-icons">local_library</i>
+                                    <span>CONTEXT</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'anticsrf' %}">
+                                    <i class="material-icons">security</i>
+                                    <span>ANTI-CSRF TOKEN</span>
+
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="{% block passive_active %} {% endblock %}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">track_changes</i>
+                            <span>PASSIVE SCAN CONFIG</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{% url 'passivescan' %}">
+                                    <i class="material-icons">scanner</i>
+                                    <span>PASSIVE SCAN RULES</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'spiderRule' %}">
+                                    <i class="material-icons">wifi_tethering</i>
+                                    <span>SPIDER SCAN RULES</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="{% block activescan_active %} {% endblock %}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">perm_data_setting</i>
+                            <span>ACTIVE SCAN CONFIG</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{% url 'activescanpolicies' %}">
+                                    <i class="material-icons">receipt</i>
+                                    <span>ACTIVE SCAN POLICIES</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="{% url 'activescansetting' %}">
+                                    <i class="material-icons">settings_backup_restore</i>
+                                    <span>ACTIVE SCAN SETTINGS</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="{% url 'activeinput' %}">
+                                    <i class="material-icons">settings_input_composite</i>
+                                    <span>ACTIVE SCAN INPUT</span>
+                                </a>
+
+                            </li>
+                            <!-- <li>
+                                <a href="">
+                                    <i class="material-icons">work</i>
+                                    <span>RULE MANAGER</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="material-icons">swap_horiz</i>
+                                    <span>REPLACER MANAGER</span>
+                                </a>
+
+                            </li> -->
+                        </ul>
+                    </li>
+                    <li class="{% block license_active %} {% endblock %}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">vpn_key</i>
+                            <span>LICENSE</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{% url 'license' %}">
+                                    <i class="material-icons">vpn_key</i>
+                                    <span> SUSCRIPTION DETAILS </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- <li class="{% block manage_active %} {% endblock %}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">build</i>
+                            <span>MANAGE INSTANCE</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="">
+                                    <i class="material-icons">lock_open</i>
+                                    <span> TWO FACTOR AUTH(2FA) </span>
+                                </a>
+
+                            </li>
+
+                            <li>
+                                <a href="">
+                                    <i class="material-icons">swap_vertical_circle</i>
+                                    <span> EXPORT / IMPORT </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li> -->
+                    <li class="{% block contactus_active %} {% endblock %}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">contacts</i>
+                            <span>HELP & SUPPORT</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="">
+                                    <i class="material-icons">email</i>
+                                    <span> CONTACT US </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- #Menu -->
+
+            <!--  Upper Part is Appending Part-->
+
+
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2024 <a href="javascript:void(0);">VULNERWEB</a>.
+                </div>
+
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+    </section>
+    {% block body %}
+
+    {% endblock %}
+
+    <!-- Jquery Core Js -->
+    <script src='{% static "plugins/jquery/jquery.min.js" %}'></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src='{% static "plugins/bootstrap/js/bootstrap.js" %}'></script>
+
+    <!-- Select Plugin Js -->
+    <script src='{% static "plugins/bootstrap-select/js/bootstrap-select.js" %}'></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src='{% static "plugins/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src='{% static "plugins/node-waves/waves.js" %}'></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src='{% static "plugins/jquery-countto/jquery.countTo.js" %}'></script>
+
+    <!-- Morris Plugin Js -->
+    <script src='{% static "plugins/raphael/raphael.min.js" %}'></script>
+    <script src='{% static "plugins/morrisjs/morris.js" %}'></script>
+
+    <!-- Custom Js -->
+    <script src='{% static "js/admin.js" %}'></script>
+
+
+    <!-- Demo Js -->
+    <script src='{% static "js/demo.js" %}'></script>
+    <script src='{% static "js/pages/tables/jquery-datatable.js" %}'></script>
+
+
+
+    {% block js %}
+
+    {% endblock %}
+</body>
+{% else %}
+
+<script>
+    window.location = "{% url 'login' %}";
+</script>
+
+{% endif %}
+
+</html>

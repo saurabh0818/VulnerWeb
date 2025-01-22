@@ -1,0 +1,311 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block css %}
+<style>
+    .modal {
+        position: absolute;
+        left: 60%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .space {
+        margin-right: 10px !important;
+    }
+</style>
+{% endblock %}
+{% block task_active %}active{%endblock%}
+{% block body %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    {% if Status %}
+
+                    {% else %}
+                    <div class="header shadow">
+                        <h2>
+                            ADD NEW SCAN
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <ul class=" pull-right">
+                                <button id="myBtn" class="btn btn-success btn-lg " data-target="# ">Create
+                                    Scan</button>
+                            </ul>
+
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <!-- Exportable Table -->
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+
+                                            <div class="body">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-bordered table-striped table-hover dataTable js-exportable shadow">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="btn-danger">Domain</th>
+                                                                <th class="btn-danger">Status</th>
+                                                                <th class="btn-danger">Urls Crwaled</th>
+                                                                <th class="btn-danger">Time</th>
+                                                                <th class="btn-danger">Vulnerability</th>
+                                                                <th class="btn-danger">Action</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+
+                                                            {% for x in scan_alldata %}
+                                                            <tr>
+                                                                <td>{{x.domain}}</td>
+                                                                <td>{{x.scan_status}}</td>
+                                                                <td>{{x.total_urls}}</td>
+                                                                <td>{{x.scan_time}}</td>
+                                                                <td class="text-center"><a
+                                                                        class="btn btn-success shadow"
+                                                                        href="{% url 'vulnerview' x.id %}"
+                                                                        role="button"><i
+                                                                            class="material-icons">remove_red_eye</i></a>
+                                                                </td>
+                                                                <td class="text-center"><a
+                                                                        class="btn btn-warning shadow"
+                                                                        href="{% url 'scanDelete' x.id %}"
+                                                                        role="button"><i class="material-icons">delete
+                                                                        </i></a>
+                                                                </td>
+
+                                                            </tr>
+                                                            {% endfor %}
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #END# Exportable Table -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <!-- new card for new scan loading by ajax -->
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card ">
+                        <div class="header shadow bg-red">
+                          <h2>New Scan</h2>
+                        </div>
+                        <div class="body shadow">
+                            <div id="dataDisplay">
+                                <!-- Data will be displayed here -->
+                            </div>
+                        
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <script src="script.js"></script>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+        </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Scan</h4>
+
+            </div>
+            <hr>
+            <div class="modal-body">
+
+                <form method="POST" action="{% url 'scan' %}">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label for="exampleInputEmail1">Enter Domain*</label>
+                                    <input type="text" class="form-control" id="domain" aria-describedby="emailHelp"
+                                        placeholder="http://google.com" name="domain">
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="demo-switch-title">Scan with Authetication Page</div>
+                            <div class="switch">
+                                <label><input type="checkbox" name="AuthActive" value=""><span
+                                        class="lever switch-col-red"></span></label>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <small id="emailHelp" class="form-text text-muted text-danger">Note : Don't Check 'Scan with
+                                Authetication' button. if you do not Set Authtication Data in 'Context'</small>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" id="subbtn" class="btn btn-success waves-effect pull-right">
+                                <i class="material-icons">language</i>
+                                <span>START SCAN</span>
+                            </button>
+                            <button type="button" class="btn btn-danger waves-effect pull-right space"
+                                data-dismiss="modal">
+                                <i class="material-icons">backspace</i>
+                                <span>CANCEL</span>
+                            </button>
+                        </div>
+                    </div>
+
+            </div>
+
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% if messages %}
+
+<div class="modal fade in" id="alertme" tabindex="-1" role="dialog" style="display: block;"
+    aria-labelledby="alertmeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-col-red">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Alert!!</h4>
+            </div>
+            <div class="modal-body">
+                {% for x in messages %}
+                <h6>{{x}}</h6>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-danger waves-effect pull-right space" data-dismiss="modal">
+                    <i class="material-icons">done_all</i>
+                    <span>OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+<button id="alrtBtn" class="btn btn-success btn-lg invisible" data-target="#alertme" data-toggle="modal">Create
+    Scan</button>
+
+{% block js %}
+<!--Jquery DataTable Plugin Js-->
+<script src='{% static "plugins/jquery-datatable/jquery.dataTables.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.flash.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/jszip.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/pdfmake.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/vfs_fonts.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.html5.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.print.min.js" %}'></script>
+<script>
+
+    $(document).ready(function () {
+
+        $("#myBtn").click(function () {
+            $('#myModal').modal('show');
+        });
+
+
+    });
+
+    window.onload = function () {
+        document.getElementById("alrtBtn").click();
+    };
+
+    $('#subbtn').click(function () {
+        $('#myModal').modal('hide');
+    });
+
+
+    // ajax mathod for knowing status of current running Scan 
+    $(document).ready(function() {
+    function fetchData() {
+        // AJAX call to fetch data
+        $.ajax({
+            url: "{% url 'sendstatus'  %}",
+            method: 'GET',
+            success: function(response) {
+                // Check if data is received
+                
+                if (response.my_data) {
+                    // Data received, display in the HTML
+                    let tmpdata = document.getElementById('dataDisplay')
+                    tmpdata.innerHTML = `<h3> ${response.type} Scan Running : ${response.my_data} % </h3>`
+                    clearInterval(intervalId); // Stop the interval
+                    let times = setTimeout(function(){
+                    window.location.reload(1);
+                    },  3000);
+                    
+                } else {
+                    // Data not received, display message
+                    $('#dataDisplay').html('<p>No Domain found for Scan</p>');
+                    clearTimeout(times)
+                    
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error('Error fetching data:', error);
+                $('#dataDisplay').html('<p>Error fetching data: ' + error + '</p>');
+            }
+        });
+    };
+    
+    // Call fetchData every 4 Second
+    var intervalId = setInterval(fetchData, 4000); // 4 second in milliseconds
+    // Call initially when the page loads
+    fetchData();
+    
+    
+});
+
+
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

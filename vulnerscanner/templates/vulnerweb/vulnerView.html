@@ -1,0 +1,152 @@
+{% extends "vulnerweb/base.html" %}
+{% load static %}
+{% block task_active %}active{%endblock%}
+{% block body %}
+
+
+<!-- Risk Design -->
+
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shadow">
+                <div class="info-box bg-pink hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">trending_up</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">High</div>
+                        <div class="number count-to" data-from="0" data-to="300" data-speed="15"
+                            data-fresh-interval="20">{{High}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shadow">
+                <div class="info-box bg-cyan hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">call_split</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Medium</div>
+                        <div class="number count-to" data-from="0" data-to="{{Medium}}" data-speed="1000"
+                            data-fresh-interval="20">{{Medium}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shadow">
+                <div class="info-box bg-light-green hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">trending_down</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Low</div>
+                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
+                            data-fresh-interval="20">{{Low}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 shadow">
+                <div class="info-box bg-orange hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">info</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Information</div>
+                        <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
+                            data-fresh-interval="20">{{Info}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Card Vulnerability -->
+
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header shadow">
+                        <h2>
+                            Vulnerbility
+                        </h2>
+
+                    </div>
+                    <div class="body shadow">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <!-- Exportable Table -->
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+
+                                            <div class="body">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-bordered table-striped table-hover dataTable js-exportable shadow">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="btn-danger">Vulnerability</th>
+                                                                <th class="btn-danger">Url</th>
+                                                                <th class="btn-danger">Evidence</th>
+                                                                <th class="btn-danger">Description</th>
+                                                                <th class="btn-danger">Solutions</th>
+                                                                <th class="btn-danger">Severity</th>
+
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            {% for x in allvulner %}
+                                                            <tr>
+                                                                <td>{{x.vul_name}}</td>
+                                                                <td>{{x.urls}}</td>
+                                                                <td>{{x.evidence}}</td>
+                                                                <td>{{x.decryption}}</td>
+                                                                <td>{{x.solution}}</td>
+                                                                <td>{{x.risk}}</td>
+
+
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #END# Exportable Table -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+{% block js %}
+<!--Jquery DataTable Plugin Js-->
+<script src='{% static "plugins/jquery-datatable/jquery.dataTables.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.flash.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/jszip.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/pdfmake.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/vfs_fonts.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.html5.min.js" %}'></script>
+<script src='{% static "plugins/jquery-datatable/extensions/export/buttons.print.min.js" %}'></script>
+
+{% endblock %}
+
+{% endblock %}
