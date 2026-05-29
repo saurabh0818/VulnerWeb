@@ -13,11 +13,11 @@ Scan the Websites and Web Applications outside-in and identifies the vulnerabili
 <h2 id="dashboard">DASHBOARD
   <hr>
   <h4>Centralized dashboard for monitoring scans, vulnerabilities, targets, and analytics.</h4>
-
-    -Features
-    -Real-time scan monitoring
-    -Vulnerability overview
-    -Severity-based analytics
-    -Historical tracking
-    -Target management
+  <img src="" />
+  1. Features
+  2. Real-time scan monitoring
+  3. Vulnerability overview
+  4. Severity-based analytics
+  5. Historical tracking
+  6. Target management
 <br>
