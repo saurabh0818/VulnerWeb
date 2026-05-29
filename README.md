@@ -8,14 +8,16 @@ Scan the Websites and Web Applications outside-in and identifies the vulnerabili
   <a href="#attack">Active & Passive Attack</a> •
   <a href="#license">License</a> •
 </p>
+<hr>
 
-##Dashboard
-#Centralized dashboard for monitoring scans, vulnerabilities, targets, and analytics.
+<h2 id="dashboard">DASHBOARD
+  <hr>
+  <h4>Centralized dashboard for monitoring scans, vulnerabilities, targets, and analytics.</h4>
 
--Features
--Real-time scan monitoring
--Vulnerability overview
--Severity-based analytics
--Historical tracking
--Target management
+    -Features
+    -Real-time scan monitoring
+    -Vulnerability overview
+    -Severity-based analytics
+    -Historical tracking
+    -Target management
 <br>
